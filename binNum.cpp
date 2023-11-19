@@ -6,14 +6,35 @@ long long len(std::string str)
         a++;
     return a;
 }
-
-std::string reverce(std::string str)
+std::string ToBin(long long number)
 {
-    std::string result = "";
-
-    for (int i = len(str) - 1; i >= 0; i--)
-        result += str[i];
-    return result;
+    std::string f;
+    while (number)
+    {
+        f += (number % 2) + '0';
+        number /= 2;
+    }
+    return f;
+}
+std::string reverce(std::string str) 
+{
+    std::string S1 = "";
+    for (int i = 0; str[i] != '\0'; i++) {
+        S1 += str[len(str) - (i + 1)];
+    }
+    return S1;
+}
+std::string AddNulls(int a, std::string f)
+{
+    std::string result;
+    for (int i = len(f); i < a - 1; i++)
+        f += '0';
+  /*  if (len(result) < a)
+    {
+        for (int i = len(result) - 1; i < a; i++)
+            result = result + '0';
+    }*/
+    return f;
 }
 std::string itc_bin_num(long long number, int a, int b)
 {
@@ -22,34 +43,35 @@ std::string itc_bin_num(long long number, int a, int b)
     if (number < 0)
     {
         number *= -1;
-        isNeg = 1;
+        isNeg = true;
     }
-    while (number)
-    {
-        f += (number % 2) + '0';
-        number /= 2;
-    }
+
+    f  = ToBin(number);
+    std::string result;
+        std::cout << "a=" << a << " " << f;
+    result = AddNulls(a, f);
+    std::cout << std::endl <<  result << std::endl;
     if (isNeg)
     {
-        f += '1';
+        result += '1';
         if (b == 2)
         {
-            for (int i = 0; i < len(f) - 1; i++)
+            for (int i = 0; i < len(result) - 1; i++)
             {
-                if (f[i] == '0')
-                    f[i] = '1';
+                if (result[i] == '0')
+                    result[i] = '1';
                 else
-                    f[i] = '0';
+                    result[i] = '0';
             }
         }
         if (b == 3)
         {
-            for (int i = 0; i < len(f) - 1; i++)
+            for (int i = 0; i < len(result) - 1; i++)
             {
-                if (f[i] == '0')
-                    f[i] = '1';
+                if (result[i] == '0')
+                    result[i] = '1';
                 else
-                    f[i] = '0';
+                    result[i] = '0';
             }
             int g = 1;
             if (f[0] == '0')
@@ -57,26 +79,17 @@ std::string itc_bin_num(long long number, int a, int b)
             else
             {
 
-                f[0] = '0';
-                while (f[g] != '0')
+                result[0] = '0';
+                while (result[g] != '0')
                 {
-                    f[g] = '0';
+                    result[g] = '0';
                     g++;
                 }
-                f[g] = '1';
+                result[g] = '1';
             }
         }
     }
     else
-        f += '0';
-    std::string fUpd = reverce(f);
-    std::string result;
-    for(int i = 0; i < a && i <= len(fUpd); i++)
-        result += fUpd[i];
-    if(len(result) < a)
-    {
-        for (int i = len(result); i < a; i++)
-            result += '0';
-    }
-    return result;
+        result += '0';
+    return reverce(result);
 }
