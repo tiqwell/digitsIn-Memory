@@ -16,12 +16,11 @@ std::string ToBin(long long number)
     }
     return f;
 }
-std::string reverce(std::string str) 
+std::string reverce(std::string str)
 {
     std::string S1 = "";
-    for (int i = 0; str[i] != '\0'; i++) {
+    for (int i = 0; str[i] != '\0'; i++)
         S1 += str[len(str) - (i + 1)];
-    }
     return S1;
 }
 std::string AddNulls(int a, std::string f)
@@ -29,11 +28,6 @@ std::string AddNulls(int a, std::string f)
     std::string result;
     for (int i = len(f); i < a - 1; i++)
         f += '0';
-  /*  if (len(result) < a)
-    {
-        for (int i = len(result) - 1; i < a; i++)
-            result = result + '0';
-    }*/
     return f;
 }
 std::string itc_bin_num(long long number, int a, int b)
@@ -46,11 +40,15 @@ std::string itc_bin_num(long long number, int a, int b)
         isNeg = true;
     }
 
-    f  = ToBin(number);
+    f = ToBin(number);
     std::string result;
-        std::cout << "a=" << a << " " << f;
-    result = AddNulls(a, f);
-    std::cout << std::endl <<  result << std::endl;
+    if(len(f) <= a)
+        result = AddNulls(a, f);
+    else
+    {
+        for (int i = 0; i < a - 1; i++)
+            result += f[i];
+    }
     if (isNeg)
     {
         result += '1';
@@ -74,7 +72,7 @@ std::string itc_bin_num(long long number, int a, int b)
                     result[i] = '0';
             }
             int g = 1;
-            if (f[0] == '0')
+            if (result[0] == '0')
                 f[0] = '1';
             else
             {
